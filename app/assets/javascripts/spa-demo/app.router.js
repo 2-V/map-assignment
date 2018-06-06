@@ -35,6 +35,10 @@
       url: "/foos",
       templateUrl: APP_CONFIG.main_page_html
     })
+    .state("thingTypes",{
+      url: "/thingTypes",
+      templateUrl: APP_CONFIG.thing_types_page_html
+    })
     ; 
 
     //$urlRouterProvider.otherwise("/subjects");

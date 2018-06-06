@@ -58,9 +58,12 @@
 //= require spa-demo/subjects/images/image_linkable_things.service
 //= require spa-demo/subjects/images/images.component
 //= require spa-demo/subjects/images/images_authz.directive
+//= require spa-demo/subjects/thing_types/thing_types.service
+//= require spa-demo/subjects/thing_types/thing_types_authz.service
+//= require spa-demo/subjects/thing_types/thing_types_authz.directive
+//= require spa-demo/subjects/thing_types/thing_types.component
 //= require spa-demo/subjects/things/things.service
 //= require spa-demo/subjects/things/thing_images.service
-//= require spa-demo/subjects/things/thing_types.service
 //= require spa-demo/subjects/things/things_authz.service
 //= require spa-demo/subjects/things/things_authz.directive
 //= require spa-demo/subjects/things/things.component

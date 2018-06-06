@@ -197,6 +197,11 @@ sd-image-viewer div.image-items span.id {
   display: none;
 }
 
+/*** thing types ***/
+sd-thing-type-selector div.thing-type-list span.id {
+  display: none;
+}
+
 
 /*** media queries ****/
 

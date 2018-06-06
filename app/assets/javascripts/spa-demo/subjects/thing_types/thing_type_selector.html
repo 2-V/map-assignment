@@ -1,0 +1,11 @@
+
+<div class="thing-type-list row">
+  <ul>
+    <li ng-repeat="item in $ctrl.items | orderBy:'id'">
+      <a ui-sref="thingTypes({id:item.id})">
+         <span class="thing_type_id id">{{item.id}}</span>
+         {{item.name}}
+      </a>
+    </li>
+  </ul>
+</div>
