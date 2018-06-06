@@ -82,6 +82,30 @@
     <span class="invalid">{{$ctrl.item.errors.images}}</span>
   </div>
 
+  <div class="thing-types row col-lg-12">
+    <label class="col-xs-3">Thing Type:</label>
+    <ul class="thing-types col-xs-9">
+      <li ng-repeat="tt in $ctrl.thingTypes | orderBy:'name'">
+        <input type="radio"
+            name="thing-type"
+            ng-model="$ctrl.item.thing_type_id"
+            ng-disabled="!$ctrl.authz.canUpdateThingTypes"
+            ng-checked="$ctrl.getThingType({{tt.id}})"
+            value="{{tt.id}}"> {{tt.name}}
+      </li>
+      <li>
+        <input type="radio"
+            name="thing-type"
+            ng-model="$ctrl.item.thing_type_id"
+            ng-disabled="!$ctrl.authz.canUpdateThingTypes"
+            ng-checked="$ctrl.getThingType('0')"
+            value="0"> No type selected
+      </li>
+    </ul>
+
+    <span class="invalid">{{$ctrl.item.errors.thingTypes}}</span>
+  </div>
+
   <div class="thing-controls"
        ng-show="$ctrl.authz.authenticated">
     <button ng-show="!$ctrl.item.id && $ctrl.authz.canCreate"
