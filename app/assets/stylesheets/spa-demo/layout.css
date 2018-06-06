@@ -116,6 +116,9 @@ div.area-pane div.tab-content div.tab-pane div#map {
   height: 100%;
 }
 
+div#map {
+  height: 800px;
+}
 /********************************/
 
 [readonly='readonly'] {
