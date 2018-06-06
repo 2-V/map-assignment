@@ -3,20 +3,20 @@ class ThingsController < ApplicationController
   helper ThingsHelper
   before_action :set_thing, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
-  wrap_parameters :thing, include: ["name", "description", "notes"]
+  wrap_parameters :thing, include: ["name", "description", "notes", "thing_type_id"]
   after_action :verify_authorized
   after_action :verify_policy_scoped, only: [:index]
 
   def index
     authorize Thing
-    things = policy_scope(Thing.all)
+    things = policy_scope(Thing.with_type.all)
     @things = ThingPolicy.merge(things)
   end
 
   def show
     authorize @thing
     things = ThingPolicy::Scope.new(current_user,
-                                    Thing.where(:id=>@thing.id))
+                                    Thing.with_type.where(:id=>@thing.id))
                                     .user_roles(false)
     @thing = ThingPolicy.merge(things).first
   end
@@ -63,6 +63,6 @@ class ThingsController < ApplicationController
     def thing_params
       params.require(:thing).tap {|p|
           p.require(:name) #throws ActionController::ParameterMissing
-        }.permit(:name, :description, :notes)
+        }.permit(:name, :description, :notes, :thing_type_id)
     end
 end

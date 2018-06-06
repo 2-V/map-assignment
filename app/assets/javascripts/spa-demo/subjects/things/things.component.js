@@ -36,9 +36,10 @@
                                    "$state","$stateParams",
                                    "spa-demo.authz.Authz",
                                    "spa-demo.subjects.Thing",
-                                   "spa-demo.subjects.ThingImage"];
+                                   "spa-demo.subjects.ThingImage",
+                                   "spa-demo.subjects.ThingType"];
   function ThingEditorController($scope, $q, $state, $stateParams, 
-                                 Authz, Thing, ThingImage) {
+                                 Authz, Thing, ThingImage, ThingType) {
     var vm=this;
     vm.create = create;
     vm.clear  = clear;
@@ -46,6 +47,8 @@
     vm.remove  = remove;
     vm.haveDirtyLinks = haveDirtyLinks;
     vm.updateImageLinks = updateImageLinks;
+    vm.thingTypes = ThingType.query();
+    vm.getThingType = getThingType;
 
     vm.$onInit = function() {
       //console.log("ThingEditorController",$scope);
@@ -89,7 +92,14 @@
         }        
       }
       return false;
-    }    
+    }   
+    function getThingType(type) {
+      if(vm.item.thing_type_id == type) {
+        return true;
+      } else {
+        return false;
+      }
+    }   
 
     function create() {      
       vm.item.errors = null;
@@ -159,9 +169,12 @@
   ThingSelectorController.$inject = ["$scope",
                                      "$stateParams",
                                      "spa-demo.authz.Authz",
-                                     "spa-demo.subjects.Thing"];
-  function ThingSelectorController($scope, $stateParams, Authz, Thing) {
+                                     "spa-demo.subjects.Thing",
+                                     "spa-demo.subjects.ThingType"];
+  function ThingSelectorController($scope, $stateParams, Authz, Thing, ThingType) {
     var vm=this;
+    vm.thingTypes = ThingType.query();
+    vm.filter = "";
 
     vm.$onInit = function() {
       //console.log("ThingSelectorController",$scope);
@@ -174,6 +187,7 @@
     }
     return;
     //////////////
+    $scope.filter = {};
   }
 
 })();

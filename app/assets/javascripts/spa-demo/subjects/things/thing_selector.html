@@ -1,9 +1,23 @@
-<div class="thing-list" ng-show="$ctrl.authz.canQuery">
+<div class='thing-filter row' ng-show="$ctrl.authz.canQuery">
+	<p>&nbsp;</p>
+	<p><strong>Filter results by clicking an option below</strong></p>
+    <select
+    	name="thing-type"
+    	ng-model="typeSearch">
+    	<option ng-repeat="tt in $ctrl.thingTypes | orderBy:'name'"
+    	value="{{tt.id}}">{{tt.name}}</option>
+    	<option value="0">No type selected</option>
+    	<option value="">View All</option>
+    </select>
+    </div>
+</div>
+
+<div class="thing-list row" ng-show="$ctrl.authz.canQuery">
   <ul>
-    <li ng-repeat="item in $ctrl.items | orderBy:'name'">
+    <li ng-repeat="item in $ctrl.items | filter:{thing_type_id:typeSearch} | orderBy:'name'">
       <a ui-sref="things({id:item.id})">
          <span class="thing_id id">{{item.id}}</span>
-         {{item.name}}
+         {{item.name}} -- {{item.thing_type_name}}
       <span ng-show="$ctrl.authz.canUpdateItem(item)"> *</span>
       </a>
     </li>
