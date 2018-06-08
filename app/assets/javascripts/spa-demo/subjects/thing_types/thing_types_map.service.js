@@ -15,6 +15,7 @@
     
     var service = this;
     service.version = 0;
+    service.newVersion = 0;
     service.things = Thing.query();
 
     //refresh();
@@ -50,15 +51,27 @@
     });
 
     console.log("FilteredThings: ", this.filter);
-    return this.things.length > 0 ? this.filter : null;
+    if (this.thingIdx){
+      return this.things.length > 0 ? this.filter : null;  
+      this.version = this.newVersion;
+    } else { return null;}
+    
   }
   ThingTypesMap.prototype.setCurrentThingType = function(index) {
 
       this.thingIdx=index;
+      this.newVersion += 1;
 
     console.log("setCurrentThing", this.thingIdx);
-    this.getCurrentThing();
-    return this.thingIdx;
+    if (this.version < this.newVersion){
+      this.getCurrentThing();
+      this.version = this.newVersion;
+      this.getCurrentThing();
+      return this.thingIdx;
+    } else { return null;}
+    }
+  ThingTypesMap.prototype.showThing = function(index) {
+    return this.things.length > 0 ? this.things[index] : null;
   }
 
 

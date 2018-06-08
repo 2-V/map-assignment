@@ -1,9 +1,10 @@
-<ul class="items thingTypes">
-  <li ng-repeat="ti in $ctrl.thingTypes"
-      ng-class="{selected: $ctrl.isCurrentthingType($index)}">
-    <a ng-click="$ctrl.thingTypeClicked($index)">
-      <span class="id thing_type_id">{{ti.thing_type_id}}</span>
-      <span class="name">{{ti.thing_type_name}}</span> 
-    </a>
-  </li>
-</ul>
+<div class="thing-type-list row">
+  <ul>
+    <li ng-repeat="item in $ctrl.things | orderBy:'id'">
+      <a ng-click="$ctrl.thingClicked(item.id)">
+         <span class="thing_type_id id">{{item.thing_name}}</span>
+         {{item.name}}
+      </a>
+    </li>
+  </ul>
+</div>

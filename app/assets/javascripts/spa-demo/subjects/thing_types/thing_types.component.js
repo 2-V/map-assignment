@@ -6,20 +6,14 @@
     .component("sdThingTypeSelector", {
       templateUrl: thingTypeSelectorTemplateUrl,
       controller: ThingTypeSelectorController
-    })
-    .component("sdThingTypeList", {
-      templateUrl: thingTypeListTemplateUrl,
-      controller: ThingTypeListController
     });
+    
 
   thingTypeSelectorTemplateUrl.$inject = ["spa-demo.config.APP_CONFIG"];
   function thingTypeSelectorTemplateUrl(APP_CONFIG) {
     return APP_CONFIG.thing_type_selector_html;
   }   
-  thingTypeListTemplateUrl.$inject = ["spa-demo.config.APP_CONFIG"];
-  function thingTypeListTemplateUrl(APP_CONFIG) {
-    return APP_CONFIG.thing_type_list_html;
-  }     
+
 
   ThingTypeSelectorController.$inject = ["$scope",
                                      "$stateParams",
@@ -44,25 +38,6 @@
       thingTypesMap.setCurrentThingType(index);
     }
   }
-  ThingTypeListController.$inject = ["$scope",
-                                     "$stateParams",
-                                     "spa-demo.subjects.ThingType",
-                                     "spa-demo.subjects.Thing",
-                                     "spa-demo.subjects.thingTypesMap"];
-  function ThingTypeListController($scope, $stateParams, ThingType, Thing, thingTypesMap) {
-    var vm=this;
-
-
-    vm.$onInit = function() {
-      console.log("CurrentThingTypeListController",$scope);
-    }
-    vm.$postLink = function() {
-      $scope.$watch(
-        function() { return thingTypesMap.getCurrentThing(); }, 
-        function(things) { vm.things = things; }
-      );
-    }   
-    return;
-  }
+  
   
 })();

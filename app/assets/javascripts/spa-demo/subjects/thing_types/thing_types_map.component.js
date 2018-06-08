@@ -23,8 +23,8 @@
                                         currentOrigin, myLocation, Map, Thing, ThingType, thingTypesMap,
                                         APP_CONFIG) {
     var vm=this;
+    vm.things = Thing.query;
     vm.filter = [];
-    vm.idx = [0];
 
     vm.$onInit = function() {
       console.log("ThingTypesMapController",$scope);
@@ -43,12 +43,14 @@
           console.log("DisplaySubjects: " + vm.things);
           displaySubjects(); 
         });
-      // $scope.$watch(
-      //   function(){ return thingTypesMap.getCurrentThingType()},
-      //   function(index) {
-      //     displaySubjects(index);
-      //   }
-      //   ); 
+      $scope.$watch(
+        function(){ return thingTypesMap.showThing()},
+        function(index) {
+          console.log("things: ", vm.things);
+          console.log("thingShow: ", vm.things[index]);
+          displaySubjects(index);
+        }); 
+      
       
     }
 
@@ -91,10 +93,12 @@
       vm.map.clearMarkers();
       vm.map.displayOriginMarker(vm.originInfoWindow(vm.location));
       
-      angular.forEach(index, function(ti){
-        console.log("DisplaySubject: ", ti);
-        displaySubject(ti);
-      });
+        console.log("DisplaySubject: ", vm.things[index]);
+        if (index){
+          displaySubject(vm.things[index]);
+        }
+        
+
     }
 
     function displaySubject(ti) {
