@@ -14,6 +14,7 @@
 *.swp
 
 /db/images
+/config/application.yml
 
 /client/build
 /bower_components
