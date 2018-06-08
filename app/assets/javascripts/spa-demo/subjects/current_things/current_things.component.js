@@ -34,7 +34,7 @@
     }
     vm.$postLink = function() {
       $scope.$watch(
-        function() { return currentSubjects.getThings(); }, 
+        function() { return currentSubjects.getCurrentThing(); }, 
         function(things) { vm.things = things; }
       );
     }    

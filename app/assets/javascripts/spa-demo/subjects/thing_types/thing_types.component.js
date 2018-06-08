@@ -24,8 +24,9 @@
   ThingTypeSelectorController.$inject = ["$scope",
                                      "$stateParams",
                                      "spa-demo.subjects.ThingType",
-                                     "spa-demo.subjects.Thing"];
-  function ThingTypeSelectorController($scope, $stateParams, ThingType, Thing) {
+                                     "spa-demo.subjects.Thing",
+                                     "spa-demo.subjects.thingTypesMap"];
+  function ThingTypeSelectorController($scope, $stateParams, ThingType, Thing, thingTypesMap) {
     var vm=this;
     vm.filter = "";
     vm.items = ThingType.query(); 
@@ -38,26 +39,17 @@
     return;
     //////////////
     function thingTypeClicked(index){
-      var result = [];
+      
       console.log("Thing Type Clicked: " + index);
-
-      angular.forEach(vm.thingsList, function(ti) {
-        if(ti.thing_type_id === index) {
-          result.push(ti);
-          console.log("Add this Thing: ", ti);
-        }
-      });
-
-      console.log("ThingTypeClickedResult: ", result);
-      return result;
+      thingTypesMap.setCurrentThingType(index);
     }
   }
   ThingTypeListController.$inject = ["$scope",
                                      "$stateParams",
                                      "spa-demo.subjects.ThingType",
                                      "spa-demo.subjects.Thing",
-                                     "spa-demo.subjects.currentSubjects"];
-  function ThingTypeListController($scope, $stateParams, ThingType, Thing, currentSubjects) {
+                                     "spa-demo.subjects.thingTypesMap"];
+  function ThingTypeListController($scope, $stateParams, ThingType, Thing, thingTypesMap) {
     var vm=this;
 
 
@@ -66,12 +58,10 @@
     }
     vm.$postLink = function() {
       $scope.$watch(
-        function() { return currentSubjects.getThings(); }, 
-        function(things){
-          vm.things = things;
-        }
+        function() { return thingTypesMap.getCurrentThing(); }, 
+        function(things) { vm.things = things; }
       );
-    }
+    }   
     return;
   }
   
