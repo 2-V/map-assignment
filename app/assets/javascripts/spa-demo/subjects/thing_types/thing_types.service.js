@@ -13,4 +13,18 @@
       );
     return service;
   }
+  // ThingTypeFactory.prototype.thingTypeClicked = function(index){
+  //     var result = [];
+  //     console.log("Thing Type Clicked: " + index);
+
+  //     angular.forEach(vm.thingsList, function(ti) {
+  //       if(ti.thing_type_id === index) {
+  //         result.push(ti);
+  //         console.log("Add this Thing: ", ti);
+  //       }
+  //     });
+
+  //     console.log("ThingTypeClickedResult: ", result);
+  //     return result;
+  //   }
 })();

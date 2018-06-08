@@ -5,12 +5,12 @@ class ThingsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   wrap_parameters :thing, include: ["name", "description", "notes", "thing_type_id"]
   after_action :verify_authorized
-  after_action :verify_policy_scoped, only: [:index]
+  # after_action :verify_policy_scoped, only: [:index]
 
   def index
     authorize Thing
     things = policy_scope(Thing.with_type.all)
-    @things = ThingPolicy.merge(things)
+    @things = Thing.with_type.all
   end
 
   def show

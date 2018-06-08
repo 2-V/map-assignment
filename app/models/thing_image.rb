@@ -13,6 +13,8 @@ class ThingImage < ActiveRecord::Base
                          .select("thing_images.*")}
   scope :with_image, ->{ joins("right outer join images on images.id = thing_images.image_id")
                          .select("thing_images.*","images.id as image_id")}
+  scope :with_type,  ->{ with_thing.joins("left outer join thing_types on things.thing_type_id = thing_types.id")
+                         .select("thing_images.*","thing_types.id as thing_type_id, thing_types.name as thing_type_name")}                         
 
   scope :with_name,    ->{ with_thing.select("things.name as thing_name")}
   scope :with_caption, ->{ with_image.select("images.caption as image_caption")}

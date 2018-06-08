@@ -5,10 +5,7 @@
     .module("spa-demo.subjects")
     .component("sdThingTypeSelector", {
       templateUrl: thingTypeSelectorTemplateUrl,
-      controller: ThingTypeSelectorController,
-      bindings: {
-        authz: "<"
-      }
+      controller: ThingTypeSelectorController
     })
     ;
 
@@ -19,24 +16,34 @@
 
   ThingTypeSelectorController.$inject = ["$scope",
                                      "$stateParams",
-                                     "spa-demo.authz.Authz",
-                                     "spa-demo.subjects.ThingType"];
-  function ThingTypeSelectorController($scope, $stateParams, Authz, ThingType) {
+                                     "spa-demo.subjects.ThingType",
+                                     "spa-demo.subjects.Thing"];
+  function ThingTypeSelectorController($scope, $stateParams, ThingType, Thing) {
     var vm=this;
     vm.filter = "";
+    vm.items = ThingType.query(); 
+    vm.thingsList = Thing.query();
+    vm.thingTypeClicked = thingTypeClicked;
 
     vm.$onInit = function() {
       console.log("ThingTypeSelectorController",$scope);
-      $scope.$watch(function(){ return Authz.getAuthorizedUserId(); }, 
-                    function(){ 
-                      if (!$stateParams.id) {
-                        vm.items = ThingType.query();        
-                      }
-                    });
     }
     return;
     //////////////
-    $scope.filter = {};
+    function thingTypeClicked(index){
+      var result = [];
+      console.log("Thing Type Clicked: " + index);
+
+      angular.forEach(vm.thingsList, function(ti) {
+        if(ti.thing_type_id === index) {
+          result.push(ti);
+          console.log("Add this Thing: ", ti);
+        }
+      });
+
+      console.log("ThingTypeClickedResult: ", result);
+      return result;
+    }
   }
 
 })();
