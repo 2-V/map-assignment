@@ -33,6 +33,7 @@
           vm.location = location;
           initializeMap(element, location.position);
         });
+      
     }
 
     return;

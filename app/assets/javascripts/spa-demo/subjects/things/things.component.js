@@ -174,7 +174,7 @@
   function ThingSelectorController($scope, $stateParams, Authz, Thing, ThingType) {
     var vm=this;
     vm.thingTypes = ThingType.query();
-    vm.filter = "";
+    vm.filter = "thing_type_id = 1";
 
     vm.$onInit = function() {
       //console.log("ThingSelectorController",$scope);

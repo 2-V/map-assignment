@@ -1,0 +1,10 @@
+<div class="thing-type-list row">
+  <ul>
+    <li ng-repeat="item in $ctrl.things | orderBy:'id'">
+      <a ng-click="$ctrl.thingTypeClicked(item.id)">
+         <span class="thing_type_id id">{{item.thing_name}}</span>
+         {{item.name}}
+      </a>
+    </li>
+  </ul>
+</div>
