@@ -1,4 +1,4 @@
-<div class='thing-filter row' ng-show="$ctrl.authz.canQuery">
+<div class='thing-filter row'>
 	<p>&nbsp;</p>
 	<p><strong>Filter results by clicking an option below</strong></p>
     <select
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="thing-list row" ng-show="$ctrl.authz.canQuery">
+<div class="thing-list row">
   <ul>
     <li ng-repeat="item in $ctrl.items | filter:{thing_type_id:typeSearch} | orderBy:'name'">
       <a ui-sref="things({id:item.id})">

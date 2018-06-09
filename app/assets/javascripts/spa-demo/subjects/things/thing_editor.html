@@ -40,6 +40,15 @@
     <span class="invalid">{{$ctrl.item.errors.notes}}</span>
   </div>
 
+  <div class="thing-image-viewer row col-lg-12" ng-show='$ctrl.item.id'>
+    <label class="col-xs-3">Images in map</label>
+    <div class='thingMap'>
+      <sd-current-subjects-map></sd-current-subjects-map>
+    </div>
+
+  </div>
+  <br/>
+
   <div class="thing-image-viewer row col-lg-12">
     <label class="col-xs-3">Related Images:</label>
     <sd-image-viewer name="thing_editor"

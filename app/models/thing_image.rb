@@ -25,6 +25,7 @@ class ThingImage < ActiveRecord::Base
     scope=scope.by_distance(:origin=>origin, :reverse=>reverse) unless reverse.nil?
     return scope
   }
+  scope :from_thing, ->(thing_id) { where(thing_id: thing_id)}
 
   def self.with_distance(origin, scope)
     scope.select("-1.0 as distance").with_position

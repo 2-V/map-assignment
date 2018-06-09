@@ -35,11 +35,12 @@
   ThingEditorController.$inject = ["$scope","$q",
                                    "$state","$stateParams",
                                    "spa-demo.authz.Authz",
+                                   "spa-demo.subjects.SelectedThing",
                                    "spa-demo.subjects.Thing",
                                    "spa-demo.subjects.ThingImage",
                                    "spa-demo.subjects.ThingType"];
   function ThingEditorController($scope, $q, $state, $stateParams, 
-                                 Authz, Thing, ThingImage, ThingType) {
+                                 Authz, SelectedThing, Thing, ThingImage, ThingType) {
     var vm=this;
     vm.create = create;
     vm.clear  = clear;
@@ -82,6 +83,7 @@
             ti.originalPriority = ti.priority;            
           });                     
         });
+      SelectedThing.set(itemId);
       $q.all([vm.item.$promise,vm.images.$promise]).catch(handleError);
     }
     function haveDirtyLinks() {
@@ -106,6 +108,7 @@
       vm.item.$save().then(
         function(){
           //console.log("thing created", vm.item);
+          
           $state.go(".",{id:vm.item.id});
         },
         handleError);
@@ -113,6 +116,7 @@
 
     function clear() {
       newResource();
+      SelectedThing.set(null);
       $state.go(".",{id: null});    
     }
 

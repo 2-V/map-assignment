@@ -12,7 +12,7 @@ class ThingImagesController < ApplicationController
 
   def index
     authorize @thing, :get_images?
-    @thing_images = @thing.with_type.thing_images.prioritized.with_caption
+    @thing_images = @thing.thing_images.prioritized.with_caption
   end
 
   def image_things
@@ -38,6 +38,7 @@ class ThingImagesController < ApplicationController
     subject=params[:subject]
     distance=params[:distance] ||= "false"
     reverse=params[:order] && params[:order].downcase=="desc"  #default to ASC
+    thing_id = params[:thing_id]
     last_modified=ThingImage.last_modified
     state="#{request.headers['QUERY_STRING']}:#{last_modified}"
     #use eTag versus last_modified -- ng-token-auth munges if-modified-since
@@ -50,6 +51,15 @@ class ThingImagesController < ApplicationController
         .with_position
         .with_type
       @thing_images=@thing_images.things    if subject && subject.downcase=="thing"
+      if thing_id.present?
+      @thing_images = ThingImage.from_thing(thing_id.to_i)
+          .with_name
+          .with_caption
+          .with_position
+          .with_type
+      elsif subject && subject.downcase=="thing"
+        @thing_images=@thing_images.things
+      end
       @thing_images=ThingImage.with_distance(@origin, @thing_images) if distance.downcase=="true"
       render "thing_images/index"
     end
