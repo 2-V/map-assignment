@@ -207,7 +207,7 @@
         "spa-demo.geoloc.geocoder"];
     function ThingSearchController($scope, $stateParams, Authz,thingsearch,geocoder) {
         var vm=this;
-        vm.typchoice=["Hotel","Transport","Tour","Museum"];
+        vm.typchoice=["Restaurant","Park","Tour","Museum"];
         vm.typ=vm.typchoice[0];
 
         vm.thingClicked = thingClicked;

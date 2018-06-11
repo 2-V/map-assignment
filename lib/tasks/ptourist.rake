@@ -157,7 +157,7 @@ namespace :ptourist do
 
     thing={:name=>"Baltimore Water Taxi",
     :description=>"The Water Taxi is more than a jaunt across the harbor; it’s a Baltimore institution and a way of life. Every day, thousands of residents and visitors not only rely on us to take them safely to their destinations, they appreciate our knowledge of the area and our courteous service. And every day, hundreds of local businesses rely on us to deliver customers to their locations.  We know the city. We love the city. We keep the city moving. We help keep businesses thriving. And most importantly, we offer the most unique way to see Baltimore and provide an unforgettable experience that keeps our passengers coming back again and again.",
-    :typ=>"Transport",
+    :typ=>"Park",
     :notes=>"No on-duty pirates, please"}
     organizer=get_user("alice")
     members=boy_users
@@ -205,7 +205,7 @@ namespace :ptourist do
 
     thing={:name=>"Holiday Inn Timonium",
     :description=>"Group friendly located just a few miles north of Baltimore's Inner Harbor. Great neighborhood in Baltimore County",
-    :typ=>"Hotel",
+    :typ=>"Restaurant",
     :notes=>"Early to bed, early to rise"}
     organizer=get_user("carol")
     members=girl_users
@@ -256,7 +256,7 @@ namespace :ptourist do
 Whether you’re hungry, thirsty or bored, Hyatt Place Baltimore/Inner Harbor has something to satisfy your needs. Start your day with our free a.m. Kitchen Skillet™, featuring hot breakfast sandwiches, breads, cereals and more. Visit our 24/7 Gallery Market for freshly packaged grab n’ go items, order a hot, made-to-order appetizer or sandwich from our 24/7 Gallery Menu or enjoy a refreshing beverage from our Coffee to Cocktails Bar.
  
 Work up a sweat in our 24-hour StayFit Gym, which features Life Fitness® cardio equipment and free weights. Then, float and splash around in our indoor pool, open year-round for your relaxation. There’s plenty of other spaces throughout our Inner Harbor hotel for you to chill and socialize with other guests. For your comfort and convenience, all Hyatt Place hotels are smoke-free.
-",:typ=>"Hotel"}
+",:typ=>"Restaurant"}
     organizer=get_user("marsha")
     members=girl_users
     images=[

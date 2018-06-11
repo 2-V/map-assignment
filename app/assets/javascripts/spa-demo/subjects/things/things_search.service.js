@@ -23,7 +23,7 @@
         var service = this;
         service.things = [];
         service.thingId = null;
-        service.typ="Hotel";
+        service.typ="Restaurant";
 
         service.isCurrentThingId = isCurrentThingId;
         service.setCurrentThing = setCurrentThing;
