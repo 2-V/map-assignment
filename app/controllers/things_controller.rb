@@ -2,21 +2,35 @@ class ThingsController < ApplicationController
   include ActionController::Helpers
   helper ThingsHelper
   before_action :set_thing, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, only: [:create, :update, :destroy]
-  wrap_parameters :thing, include: ["name", "description", "notes", "thing_type_id"]
-  after_action :verify_authorized
-  # after_action :verify_policy_scoped, only: [:index]
+  #before_action :authenticate_user!, only: [:create, :update, :destroy]
+  wrap_parameters :thing, include: ["name", "description","typ","notes"]
+  #after_action :verify_authorized
+  #after_action :verify_policy_scoped, only: [:index]
 
   def index
     authorize Thing
-    things = Thing.with_type.all
-    @things = Thing.with_type.all
+    things = policy_scope(Thing.all)
+    things = ThingPolicy.merge(things)
+  end
+
+  def search
+
+    #authorize Thing
+    #@things = policy_scope(Thing.all)
+    #@things = ThingPolicy.merge(@things)
+    #@things=Image.not_in(exclude).within_range(@origin, miles, reverse)
+    #@images=@images.with_distance(@origin, @images)
+
+    typ=params[:typ] ? params[:typ] : nil
+    @things =Thing.all
+    @things=@things.with_type(typ)
+    render "things/index"
   end
 
   def show
     authorize @thing
     things = ThingPolicy::Scope.new(current_user,
-                                    Thing.with_type.where(:id=>@thing.id))
+                                    Thing.where(:id=>@thing.id))
                                     .user_roles(false)
     @thing = ThingPolicy.merge(things).first
   end
@@ -63,6 +77,6 @@ class ThingsController < ApplicationController
     def thing_params
       params.require(:thing).tap {|p|
           p.require(:name) #throws ActionController::ParameterMissing
-        }.permit(:name, :description, :notes, :thing_type_id)
+        }.permit(:name, :description, :typ, :notes)
     end
 end

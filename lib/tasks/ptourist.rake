@@ -5,7 +5,6 @@ namespace :ptourist do
   BOYS=["greg","peter","bobby"]
   GIRLS=["marsha","jan","cindy"]
   BASE_URL="https://dev9.jhuep.com/fullstack-capstone"
-  THING_TYPES=["Museum","Park","Restaurant","Store","Event Center"]
 
   def user_name first_name
     last_name = (first_name=="alice") ? "nelson" : "brady"
@@ -91,14 +90,13 @@ namespace :ptourist do
   end
 
   desc "reset all data"
-  task reset_all: [:users,:thingTypes,:subjects] do
+  task reset_all: [:users,:subjects] do
   end
 
   desc "deletes things, images, and links" 
   task delete_subjects: :environment do
     puts "removing #{Thing.count} things and #{ThingImage.count} thing_images"
     puts "removing #{Image.count} images"
-    puts "removing #{ThingType.count} thing types"
     DatabaseCleaner[:active_record].clean_with(:truncation, {:except=>%w[users]})
     DatabaseCleaner[:mongoid].clean_with(:truncation)
   end
@@ -130,27 +128,14 @@ namespace :ptourist do
     puts "users:#{User.pluck(:name)}"
   end
 
-  desc "reset thingTypes"
-  task thingTypes: [:delete_all] do
-    puts "creating thing types: #{THING_TYPES}"
-
-    THING_TYPES.each_with_index do |fn,idx|
-        ThingType.create(:name=>fn)
-    end
-    puts "thingTypes:#{ThingType.pluck(:name)}"
-  end
-  def get_thing_type name
-    ThingType.find_by(:name=>name)
-  end
-
   desc "reset things, images, and links" 
   task subjects: [:users] do
     puts "creating things, images, and links"
 
     thing={:name=>"B&O Railroad Museum",
     :description=>"Discover your adventure at the B&O Railroad Museum in Baltimore, Maryland. Explore 40 acres of railroad history at the birthplace of American railroading. See, touch, and hear the most important American railroad collection in the world! Seasonal train rides for all ages.",
-    :notes=>"Trains rule, boats and cars drool",
-    :thing_type_id=>1}
+    :typ=>"Museum",
+    :notes=>"Trains rule, boats and cars drool"}
     organizer=get_user("alice")
     members=boy_users
     images=[
@@ -172,8 +157,8 @@ namespace :ptourist do
 
     thing={:name=>"Baltimore Water Taxi",
     :description=>"The Water Taxi is more than a jaunt across the harbor; it’s a Baltimore institution and a way of life. Every day, thousands of residents and visitors not only rely on us to take them safely to their destinations, they appreciate our knowledge of the area and our courteous service. And every day, hundreds of local businesses rely on us to deliver customers to their locations.  We know the city. We love the city. We keep the city moving. We help keep businesses thriving. And most importantly, we offer the most unique way to see Baltimore and provide an unforgettable experience that keeps our passengers coming back again and again.",
-    :notes=>"No on-duty pirates, please",
-    :thing_type_id=>2}
+    :typ=>"Transport",
+    :notes=>"No on-duty pirates, please"}
     organizer=get_user("alice")
     members=boy_users
     images=[
@@ -199,8 +184,8 @@ namespace :ptourist do
 
     thing={:name=>"Rent-A-Tour",
     :description=>"Professional guide services and itinerary planner in Baltimore, Washington DC, Annapolis and the surronding region",
-    :notes=>"Bus is clean and ready to roll",
-    :thing_type_id=>1}
+    :typ=>"Tour",
+    :notes=>"Bus is clean and ready to roll"}
     organizer=get_user("greg")
     members=boy_users
     images=[
@@ -220,8 +205,8 @@ namespace :ptourist do
 
     thing={:name=>"Holiday Inn Timonium",
     :description=>"Group friendly located just a few miles north of Baltimore's Inner Harbor. Great neighborhood in Baltimore County",
-    :notes=>"Early to bed, early to rise",
-    :thing_type_id=>3}
+    :typ=>"Hotel",
+    :notes=>"Early to bed, early to rise"}
     organizer=get_user("carol")
     members=girl_users
     images=[
@@ -236,8 +221,8 @@ namespace :ptourist do
 
     thing={:name=>"National Aquarium",
     :description=>"Since first opening in 1981, the National Aquarium has become a world-class attraction in the heart of Baltimore. Recently celebrating our 35th Anniversary, we continue to be a symbol of urban renewal and a source of pride for Marylanders. With a mission to inspire the world’s aquatic treasures, the Aquarium is consistently ranked as one of the nation’s top aquariums and has hosted over 51 million guests since opening. A study by the Maryland Department of Economic and Employment Development determined that the Aquarium annually generates nearly $220 million in revenues, 2,000 jobs, and $6.8 million in State and local taxes. It was also recently named one of Baltimore’s Best Places to Work! In addition to housing nearly 20,000 animals, we have countless science-based education programs and hands-on conservation projects spanning from right here in the Chesapeake Bay to abroad in Costa Rica. Once you head inside, The National Aquarium has the ability to transport you all over the world in a matter of hours to discover hundreds of incredible species. From the Freshwater Crocodile in our Australia: Wild Extremes exhibit all the way to a Largetooth Sawfish in the depths of Shark Alley. Recently winning top honors from the Association of Zoos and Aquariums for outstanding design, exhibit innovation and guest engagement, we can’t forget about Living Seashore; an exhibit where guests can touch Atlantic stingrays, Horseshoe crabs, and even Moon jellies if they wish! It is a place for friends, family, and people from all walks of life to come and learn about the extraordinary creatures we share our planet with. Through education, research, conservation action and advocacy, the National Aquarium is truly pursuing a vision to change the way humanity cares for our ocean planet.",
-    :notes=>"Remember to water the fish",
-    :thing_type_id=>1}
+    :typ=>"Museum",
+    :notes=>"Remember to water the fish"}
     organizer=get_user("carol")
     members=girl_users
     images=[
@@ -271,7 +256,7 @@ namespace :ptourist do
 Whether you’re hungry, thirsty or bored, Hyatt Place Baltimore/Inner Harbor has something to satisfy your needs. Start your day with our free a.m. Kitchen Skillet™, featuring hot breakfast sandwiches, breads, cereals and more. Visit our 24/7 Gallery Market for freshly packaged grab n’ go items, order a hot, made-to-order appetizer or sandwich from our 24/7 Gallery Menu or enjoy a refreshing beverage from our Coffee to Cocktails Bar.
  
 Work up a sweat in our 24-hour StayFit Gym, which features Life Fitness® cardio equipment and free weights. Then, float and splash around in our indoor pool, open year-round for your relaxation. There’s plenty of other spaces throughout our Inner Harbor hotel for you to chill and socialize with other guests. For your comfort and convenience, all Hyatt Place hotels are smoke-free.
-"}
+",:typ=>"Hotel"}
     organizer=get_user("marsha")
     members=girl_users
     images=[

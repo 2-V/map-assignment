@@ -64,9 +64,8 @@ RSpec.feature "SubjectMaps", type: :feature, js:true do
       ti_id=nil
       found=false
       begin #keep clicking until found or getting same result
-        click_marker ti.thing.name, idx  #click marker to make window appear and searchable
-        page.has_no_css?("div.thing-marker-info span.ti_id", text:ti.id, visible:false, wait:1) #flicker
-        if page.has_css?("div.thing-marker-info span.ti_id", text:ti.id, visible:false, wait:3)
+        click_marker ti.thing.name, idx
+        if page.has_css?("div.thing-marker-info span.ti_id", text:ti.id, visible:false)
           found=true
         else
           previous_id=ti_id

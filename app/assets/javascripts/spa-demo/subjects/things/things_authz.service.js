@@ -32,9 +32,6 @@
     ThingsAuthz.prototype.canRemoveImage=function(thing) {
         return Authz.isOrganizer(thing) || Authz.isAdmin();
     };
-    ThingsAuthz.prototype.canUpdateThingTypes=function(thing) {
-        return Authz.isOrganizer(thing);
-    };
     
     return new ThingsAuthz();
   }

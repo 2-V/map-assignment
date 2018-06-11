@@ -27,6 +27,17 @@
     <span class="invalid">{{$ctrl.item.errors.description}}</span>
   </div>
 
+    <div class="thing-typ row col-lg-12"
+         ng-show="thingform.$valid">
+        <label class="col-xs-3">Thing Type:</label>
+        <textarea class="col-xs-9"
+                  name="thing-typ"
+                  ng-model="$ctrl.item.typ"
+                  ng-readonly="!$ctrl.authz.canUpdate"
+                  maxlength="40"/>
+        <span class="invalid">{{$ctrl.item.errors.description}}</span>
+    </div>
+
   <div class="thing-notes row col-lg-12"
        ng-show="$ctrl.authz.canGetDetails && thingform.$valid">
     <label class="col-xs-3">Notes:</label>
@@ -39,15 +50,6 @@
            maxlength="4000"/>
     <span class="invalid">{{$ctrl.item.errors.notes}}</span>
   </div>
-
-  <div class="thing-image-viewer row col-lg-12" ng-show='$ctrl.item.id'>
-    <label class="col-xs-3">Images in map</label>
-    <div class='thingMap'>
-      <sd-current-subjects-map></sd-current-subjects-map>
-    </div>
-
-  </div>
-  <br/>
 
   <div class="thing-image-viewer row col-lg-12">
     <label class="col-xs-3">Related Images:</label>
@@ -91,30 +93,6 @@
     <span class="invalid">{{$ctrl.item.errors.images}}</span>
   </div>
 
-  <div class="thing-types row col-lg-12">
-    <label class="col-xs-3">Thing Type:</label>
-    <ul class="thing-types col-xs-9">
-      <li ng-repeat="tt in $ctrl.thingTypes | orderBy:'name'">
-        <input type="radio"
-            name="thing-type"
-            ng-model="$ctrl.item.thing_type_id"
-            ng-disabled="!$ctrl.authz.canUpdateThingTypes"
-            ng-checked="$ctrl.getThingType({{tt.id}})"
-            value="{{tt.id}}"> {{tt.name}}
-      </li>
-      <li>
-        <input type="radio"
-            name="thing-type"
-            ng-model="$ctrl.item.thing_type_id"
-            ng-disabled="!$ctrl.authz.canUpdateThingTypes"
-            ng-checked="$ctrl.getThingType('0')"
-            value="0"> No type selected
-      </li>
-    </ul>
-
-    <span class="invalid">{{$ctrl.item.errors.thingTypes}}</span>
-  </div>
-
   <div class="thing-controls"
        ng-show="$ctrl.authz.authenticated">
     <button ng-show="!$ctrl.item.id && $ctrl.authz.canCreate"
@@ -149,10 +127,9 @@
               type="submit"
               ng-show="$ctrl.authz.canDelete" 
               ng-click="$ctrl.remove()">Delete Thing</button>
-      
-    </div>
-  </div>
-  <button name="image-clear"
+      <button name="image-clear"
               type="submit"
               ng-click="$ctrl.clear()">Clear Thing</button>
+    </div>
+  </div>
 </form>

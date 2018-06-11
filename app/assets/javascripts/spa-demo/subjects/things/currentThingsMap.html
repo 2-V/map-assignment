@@ -1,0 +1,8 @@
+
+    <span>Number of images ({{$ctrl.images.length}})</span>
+    <ul class="items images">
+        <li ng-repeat="item in $ctrl.images | orderBy:'priority'">
+            {{item.image_caption}} (priority:{{item.priority}}, lng:{{item.position.lng}}, lat:{{item.position.lat}})
+        </li>
+    </ul>
+<div id='map'></div>

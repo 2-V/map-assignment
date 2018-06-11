@@ -3,6 +3,10 @@ class ThingPolicy < ApplicationPolicy
     true
   end
 
+  def search?
+    true
+  end
+
   def show?
     true
   end

@@ -32,7 +32,7 @@
 //= require spa-demo/geoloc/geocoder.service
 //= require spa-demo/geoloc/map.service
 //= require spa-demo/geoloc/my_location.service
-// require spa-demo/geoloc/jhu_location.config
+//= require spa-demo/geoloc/jhu_location.config
 //= require spa-demo/geoloc/current_origin/current_origin.service
 //= require spa-demo/geoloc/current_origin/current_origin_selector.component
 
@@ -58,19 +58,14 @@
 //= require spa-demo/subjects/images/image_linkable_things.service
 //= require spa-demo/subjects/images/images.component
 //= require spa-demo/subjects/images/images_authz.directive
-//= require spa-demo/subjects/thing_types/thing_types_map.component
-//= require spa-demo/subjects/thing_types/thing_types_map.service
-//= require spa-demo/subjects/thing_types/thing_types.service
-//= require spa-demo/subjects/thing_types/thing_types.component
 //= require spa-demo/subjects/things/things.service
 //= require spa-demo/subjects/things/thing_images.service
 //= require spa-demo/subjects/things/things_authz.service
 //= require spa-demo/subjects/things/things_authz.directive
-//= require spa-demo/subjects/things/selected_thing.service
 //= require spa-demo/subjects/things/things.component
+//= require spa-demo/subjects/things/things_search.service
 
 //= require spa-demo/subjects/current_subjects/current_subjects.service
 //= require spa-demo/subjects/current_subjects/current_subjects.component
 //= require spa-demo/subjects/current_images/current_images.component
 //= require spa-demo/subjects/current_things/current_things.component
-//= require spa-demo/subjects/current_thing_types/current_thing_types.component

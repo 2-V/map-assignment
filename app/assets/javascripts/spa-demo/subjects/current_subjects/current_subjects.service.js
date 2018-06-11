@@ -7,14 +7,13 @@
 
   CurrentSubjects.$inject = ["$rootScope","$q",
                              "$resource",
-                             "spa-demo.subjects.SelectedThing",
                              "spa-demo.geoloc.currentOrigin",
                              "spa-demo.config.APP_CONFIG"];
 
-  function CurrentSubjects($rootScope, $q, $resource, SelectedThing, currentOrigin, APP_CONFIG) {
-    var subjectsResource = $resource(APP_CONFIG.server_url + "/api/subjects", {thing_id: '@thing_id'},{
-      query: { cache:false, isArray:true, params: { thing_id: '@thing_id'}}
-     });
+  function CurrentSubjects($rootScope, $q, $resource, currentOrigin, APP_CONFIG) {
+    var subjectsResource = $resource(APP_CONFIG.server_url + "/api/subjects",{},{
+      query: { cache:false, isArray:true }
+    });
     var service = this;
     service.version = 0;
     service.images = [];
@@ -29,7 +28,6 @@
 
     //refresh();
     $rootScope.$watch(function(){ return currentOrigin.getVersion(); }, refresh);
-    $rootScope.$watch(function(){ return SelectedThing.get(); }, refresh);
     return;
     ////////////////
     function refresh() {      
@@ -45,11 +43,6 @@
       }
       params["order"]="ASC";
       console.log("refresh",params);
-
-      var selectedThing = SelectedThing.get();
-      if (selectedThing){
-        params["thing_id"]= selectedThing;
-      }
 
       var p1=refreshImages(params);
       params["subject"]="thing";      

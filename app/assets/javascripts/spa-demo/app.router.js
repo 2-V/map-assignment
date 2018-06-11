@@ -31,13 +31,13 @@
       url: "/things/:id",
       templateUrl: APP_CONFIG.things_page_html
     })
+     .state("items",{
+            url: "/thingsearch/:id",
+            templateUrl: APP_CONFIG.items_page_html
+        })
     .state("foos",{
       url: "/foos",
       templateUrl: APP_CONFIG.main_page_html
-    })
-    .state("thingTypes",{
-      url: "/thingTypes",
-      templateUrl: APP_CONFIG.thing_types_page_html
     })
     ; 
 

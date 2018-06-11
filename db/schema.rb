@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180606113210) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "thing_type_id", default: 0, null: false
+    t.string   "typ"
   end
 
   add_index "things", ["name"], name: "index_things_on_name", using: :btree

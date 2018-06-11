@@ -6,9 +6,9 @@ class ThingImagesController < ApplicationController
   before_action :get_image, only: [:image_things]
   before_action :get_thing_image, only: [:update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
-  after_action :verify_authorized, except: [:subjects]
+  after_action :verify_authorized, except: [:subjects, :search]
   #after_action :verify_policy_scoped, only: [:linkable_things]
-  before_action :origin, only: [:subjects]
+  #before_action :origin, only: [:subjects]
 
   def index
     authorize @thing, :get_images?
@@ -17,8 +17,8 @@ class ThingImagesController < ApplicationController
 
   def image_things
     authorize @image, :get_things?
-    @thing_images=@image.thing_images.prioritized.with_name.with_type
-    render :index 
+    @thing_images=@image.thing_images.prioritized.with_name
+    render :index
   end
 
   def linkable_things
@@ -32,13 +32,13 @@ class ThingImagesController < ApplicationController
     render "things/index"
   end
 
+=begin
   def subjects
     expires_in 1.minute, :public=>true
     miles=params[:miles] ? params[:miles].to_f : nil
     subject=params[:subject]
     distance=params[:distance] ||= "false"
     reverse=params[:order] && params[:order].downcase=="desc"  #default to ASC
-    thing_id = params[:thing_id]
     last_modified=ThingImage.last_modified
     state="#{request.headers['QUERY_STRING']}:#{last_modified}"
     #use eTag versus last_modified -- ng-token-auth munges if-modified-since
@@ -49,21 +49,24 @@ class ThingImagesController < ApplicationController
         .with_name
         .with_caption
         .with_position
-        .with_type
       @thing_images=@thing_images.things    if subject && subject.downcase=="thing"
-      if thing_id.present?
-      @thing_images = ThingImage.from_thing(thing_id.to_i)
-          .with_name
-          .with_caption
-          .with_position
-          .with_type
-      elsif subject && subject.downcase=="thing"
-        @thing_images=@thing_images.things
-      end
       @thing_images=ThingImage.with_distance(@origin, @thing_images) if distance.downcase=="true"
       render "thing_images/index"
     end
   end
+=end
+
+  def subjects
+    thing_id=params[:thing_id]
+    @thing_images=ThingImage.where(:thing_id=>params[:thing_id])
+                        .with_name
+                        .with_caption
+                        .with_position
+      render "thing_images/index"
+
+  end
+
+
 
   def create
     thing_image = ThingImage.new(thing_image_create_params.merge({
